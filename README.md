@@ -46,3 +46,11 @@ Server sends a request whenever controller input is changed, could either be the
 
 Fail State is allways Unsafe: No way to determine fail condition.
 
+#### Command Method
+
+Base Station is the Client, and Jetson/Raspi is the Server.
+
+Server sends a request indicating not the control state, but an approximation of what that control state would cause during 250ms; a command.
+So, if the joystick is set to forwards, the command is "move forwards for 250ms at velocity 0.954".  The server then translates that to holding the joystick at that velocity for 250ms before resetting it to zero.
+
+Fail State is allways Safe: Commands are scoped to a time limit.
