@@ -1,0 +1,28 @@
+<script>
+
+var gamepadsconnected = 0
+
+window.addEventListener("gamepadconnected", (e) => {
+   console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      e.gamepad.index, e.gamepad.id,
+      e.gamepad.buttons.length, e.gamepad.axes.length)
+   gamepadsconnected += 1
+})
+
+window.addEventListener("gamepaddisconnected", (e) => {
+   gamepadsconnected -= 1
+   console.log("Gamepad disconnected from index %d: %s", e.gamepad.index, e.gamepad.id)
+})
+
+window.setInterval(function() {
+   var xhr = new XMLHttpRequest()
+   xhr.open("POST", "/reportstate", false)
+      xhr.setRequestHeader("Content-Type", "text/plain")
+   if (gamepadsconnected > 0) {
+      let pad = navigator.getGamepads()[0]
+      xhr.send(pad.axes[0] + ',' + pad.axes[1])
+   } else {
+      xhr.send('0,0')
+   }
+}, 100)
+</script>

@@ -11,8 +11,6 @@ web_port = 8081
 tcp_port = 8082
 tcp_host_name = "127.0.0.1" # would be the Jetson's hardcoded IP address
 
-tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-print("TCP client initialized.")
 
 class my_server(BaseHTTPRequestHandler):
    def do_GET(self):
@@ -42,6 +40,8 @@ class my_server(BaseHTTPRequestHandler):
          self.wfile.write(bytes('404', 'utf-8'))
    def do_POST(self):
       if (self.path.startswith("/reportstate")):
+         tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+         print("TCP client initialized.")
          # make TCP connection
          try:
             tcp_client.connect((tcp_host_name, tcp_port))
@@ -49,10 +49,11 @@ class my_server(BaseHTTPRequestHandler):
 
             received = tcp_client.recv(1024)
          except Exception as e:
-            received = '!'
+            received = '!'.encode()
             print(e)
          finally:
             tcp_client.close()
+            print("TCP session done")
 
          self.send_response(200)
          self.send_header("Content-type", "text/plain")
