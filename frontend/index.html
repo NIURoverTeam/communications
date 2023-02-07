@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Hello there!</title>
+</head>
+<body>
+   <h1>This is the page</h1>
+
+   <button onclick="sendPost()">Send Post :3</button>
+
+<script>
+function sendPost() {
+   var xhr = new XMLHttpRequest()
+   xhr.open("POST", "/reportstate", true)
+   xhr.setRequestHeader("Content-type", "text/plain")
+   xhr.send('neat memes!');
+}
+</script>
+</body>
+</html>
