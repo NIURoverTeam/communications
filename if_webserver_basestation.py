@@ -9,7 +9,7 @@ web_host_name = "localhost" # is genuinely localhost
 web_port = 8081
 
 tcp_port = 8082
-tcp_host_name = "127.0.0.1" # would be the Jetson's hardcoded IP address
+tcp_host_name = "192.168.1.123" # would be the Jetson's hardcoded IP address
 
 
 class my_server(BaseHTTPRequestHandler):
