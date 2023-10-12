@@ -144,11 +144,20 @@ def main():
 
             # Let's do our TCP stuff
             if "Xbox" in name:
+               # get the values
+               left_raw = joystick.get_axis(1)
+               right_raw = joystick.get_axis(3)
+
+               if (abs(left_raw) < 0.1):
+                  left_raw = 0
+               if (abs(right_raw) < 0.1):
+                  right_raw = 0
+
                # drive control
                tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                try:
                   tcp_client.connect((tcp_host_name, tcp_port))
-                  tcp_client.sendall(bytes(str(joystick.get_axis(0)) + ',' + str(joystick.get_axis(1)), 'utf-8'))
+                  tcp_client.sendall(bytes(str(round(left_raw,2)) + ',' + str(round(right_raw,2)), 'utf-8'))
 
                   received = tcp_client.recv(1024)
                except Exception as e:
