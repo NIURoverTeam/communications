@@ -1,9 +1,13 @@
 import socketserver
 import time
-#import serial
+import serial
 
 hit = time.process_time()
 hit_prior = hit
+
+#arduino = serial.Serial('/dev/cu.usbmodem14101', 9600, timeout=.5)
+#arduino.open()
+arduino = serial.Serial('/dev/cu.usbmodem14101', 9600, timeout=.01)
 
 def convert_basestation_values_to_arduino_values(number):
    return int((float(number) / 0.2)) + 0x7
@@ -23,12 +27,19 @@ class Handler_TCPServer(socketserver.BaseRequestHandler):
       arr = str(self.data)[2:-1].split(',')
       narr = map(convert_basestation_values_to_arduino_values, arr)
 
-      print(''.join('%01x'%i for i in narr))
+      #print(''.join('%01x'%i for i in narr))
+      resultantbyte = 0
+      for i in narr:
+         resultantbyte = (resultantbyte << 4) | i
+
+      #resultantbyte = (narr[0] << 4) & narr[1]
+      print('%02x'%resultantbyte)
 
       
 
-      #arduino = serial.Serial('/dev/tty#', 9600, timeout=.1)
-      #arduino.write(
+      arduino.write(bytes([resultantbyte]))
+      weh = arduino.read(5)
+      print(weh)
 
 if __name__ == "__main__":
    HOST, PORT = "localhost", 8082
