@@ -3,7 +3,7 @@ int DIR2 = 4;
 int PWM1 = 3;
 int DIR1 = 2;
 
-bool ROVER5 = true;
+bool ROVER5 = false;
 
 int RTalonPin = 9;
 int LTalonPin = 10;
@@ -12,8 +12,8 @@ int TALON_CENTER = 1500;
 
 #include <Servo.h>
 
-Servo RTalon
-Servo LTalon
+Servo RTalon;
+Servo LTalon;
 
 void setup() {
   if (ROVER5) {
@@ -58,8 +58,8 @@ void loop() {
       analogWrite(PWM2, map(abs(right), 0, 5, 0, 255));
       digitalWrite(DIR2, right > 0);
     } else {
-      LTalon.writeMicroseconds(map(left, -5, 5, 1300, 1700));
-      RTalon.writeMicroseconds(map(right, -5, 5, 1300, 1700));
+      LTalon.writeMicroseconds(map(left, -5, 5, 1300, 1700)); # 1200 - 1800 yields theoretical 60in per second
+      RTalon.writeMicroseconds(map(right, -5, 5, 1300, 1700)); # 1300 - 1700 yields theoretical 30in per second
     }
   } else {
     if (ROVER5) {
