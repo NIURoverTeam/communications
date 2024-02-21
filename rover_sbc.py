@@ -42,7 +42,7 @@ class Handler_TCPServer(socketserver.BaseRequestHandler):
       print(weh)
 
 if __name__ == "__main__":
-   HOST, PORT = "localhost", 8082
+   HOST, PORT = "0.0.0.0", 8082
 
    tcp_server = socketserver.TCPServer((HOST, PORT), Handler_TCPServer)
 
