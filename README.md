@@ -5,12 +5,6 @@ TCP server/client(s): Base station -> multiple Arduino devices (over ethernet, v
 
 ### Controller Data Acquisition
 
-#### GUI/Javascript Approach
-
-https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
-
-Do note that browsers cannot make vanilla TCP requests, only HTTP requests.  If we go this route, we will need to adapt the TCP server to accept HTTP requests and forward them over TCP.
-
 #### Python/Server Approach
 
 https://inputs.readthedocs.io/en/latest/user/quickstart.html
@@ -21,14 +15,6 @@ This lacks a true front-end, so a shell of a front end would be required.  The T
 ### Client/Server Assignment
 
 Definitions: Fail-Safe: Assume all controls are set to zero if connection drop; Fail-Unsafe: Assume all controls remain the same if connection drop.
-
-#### Polling Method 1
-
-Jetson/Raspi is the client, and Base station is the server.
-
-Client sends a request every 250ms to the base station requesting the full rover control state.
-
-Client (Jetson/Raspi) determines Fail State: If no response from server, fail condition.
 
 #### Polling Method 2
 
