@@ -1,6 +1,14 @@
 # communications
 TCP server/client(s): Base station -> multiple Arduino devices (over ethernet, via Raspi/Jetson node)
 
+Sensors Attached to the SBC:
+* GPS (GlobalSat BU-353S4)
+* LIDAR (Slamtec RPLIDAR A1)
+* RealSense with Built-In IMU (D435i) (Not the D435)
+
+Also Connected to the SBC:
+* Raspberry Pi running drive code and arm code
+
 ## Notes / Scratchpad
 
 ### Controller Data Acquisition
